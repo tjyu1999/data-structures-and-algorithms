@@ -1,8 +1,8 @@
 # include <iostream>
 
-# define MAX_LENGTH 100
-
 using namespace std;
+
+const int max_length = 100;
 
 void swap(int *a, int *b){
     int tmp = *a;
@@ -39,7 +39,7 @@ int main(){
     char c;
     int val;
     int length = 0;
-    int arr[MAX_LENGTH];
+    int arr[max_length];
     
     while(cin.get(c) && c != '\n'){
         cin.putback(c);
