@@ -31,7 +31,7 @@ public:
     }
     
     int size(){
-        return top++;
+        return top + 1;
     }
     
     int get_top(){
@@ -56,9 +56,10 @@ int main(){
     st.push(1);
     st.push(2);
     st.push(3);
+    st.pop();
     st.push(4);
     st.push(5);
-    
+
     while(!st.empty()){
         cout << st.get_top() << " ";
         st.pop();
