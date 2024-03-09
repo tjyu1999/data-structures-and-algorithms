@@ -2,27 +2,53 @@
 
 using namespace std;
 
-const int default_size = 10;
-
 class Queue{
+private:
+    int *q;
+    int front;
+    int rear;
+    int capacity;
+    
+    void double_capacity(){
+        int j = front;
+        int *tmp = new int [capacity * 2];
+        
+        for(int i = 1; i <= size(); i++) tmp[i] = q[++j % capacity];
+        delete [] q;
+        q = tmp;
+        rear = size();
+        front = 0;
+        capacity *= 2;
+    }
+    
 public:
-    Queue(){
-        q = new int[default_size];
-        front = -1;
-        rear = -1;
+    Queue(): capacity(10), front(0), rear(0){
+        q = new int [capacity];
     }
     
     ~Queue(){
-        delete[] q;
+        delete [] q;
     }
     
-    void push(int val){
-        q[++rear] = val;
+    bool empty(){
+        return front == rear;
+    }
+    
+    int size(){
+        return rear - front;
+    }
+    
+    void push(const int val){
+        if((rear + 1) % capacity == front) double_capacity();
+        
+        rear = (rear + 1) % capacity;
+        q[rear] = val;
     }
     
     void pop(){
         if(empty()) throw "Queue is empty!";
-        front++;
+        
+        front = (front + 1) % capacity;
     }
     
     int get_front(){
@@ -34,23 +60,6 @@ public:
         if(empty()) throw "Queue is empty!";
         return q[rear];
     }
-    
-    int size(){
-        return rear - front;
-    }
-    
-    bool full(){
-        return rear == default_size - 1;
-    }
-    
-    bool empty(){
-        return front == rear;
-    }
-
-private:
-    int* q;
-    int front;
-    int rear;
 };
 
 int main(){
@@ -59,15 +68,9 @@ int main(){
     q.push(1);
     q.push(2);
     q.push(3);
+    q.pop();
     q.push(4);
     q.push(5);
-    q.push(6);
-    q.push(7);
-    q.push(8);
-    q.push(9);
-    q.push(10);
-    q.push(11);
-    q.push(12);
     
     while(!q.empty()){
         cout << q.get_front() << " ";
@@ -75,11 +78,5 @@ int main(){
     }
     cout << endl;
     
-    // q.pop();
-    /*
-    cout << q.get_front() << endl;
-    cout << q.get_back() << endl;
-    cout << q.size() << endl;
-    */
     return 0;
 }
