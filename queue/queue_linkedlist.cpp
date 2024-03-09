@@ -1,6 +1,6 @@
 # include <iostream>
 
-using namepsace std;
+using namespace std;
 
 struct ListNode{
     int data;
@@ -19,27 +19,45 @@ public:
     Queue(): front(0), rear(0), capacity(0){};
     
     bool empty(){
-    
+        return (front && rear) == 0;
     }
     
     int size(){
-    
+        return capacity;
     }
     
     void push(const int val){
-    
+        if(empty()){
+            front = new ListNode(val);
+            rear = front;
+            capacity++;
+            return;
+        }
+        
+        ListNode *tmp = new ListNode(val);
+        rear->next = tmp;
+        rear = tmp;
+        capacity++;
     }
     
     void pop(){
-    
+        if(empty()) throw "Queue is empty";
+        
+        ListNode *del = front;
+        front = front->next;
+        delete del;
+        del = 0;
+        capacity--;
     }
     
     int get_front(){
-    
+        if(empty()) throw "Queue is empty";
+        return front->data;
     }
     
     int get_back(){
-    
+        if(empty()) throw "Queue is empty";
+        return rear->data;
     }
 };
 
@@ -58,7 +76,6 @@ int main(){
         q.pop();
     }
     cout << endl;
-    cout << q.get_back() << endl;
     
     return 0;
 }

@@ -77,7 +77,6 @@ int main(){
         q.pop();
     }
     cout << endl;
-    cout << q.get_back() << endl;
     
     return 0;
 }
