@@ -30,6 +30,25 @@ public:
         root = nullptr;
     }
     
+    vector<int> inorder_traversal(TreeNode *root){        
+        vector<int> res;
+        stack<TreeNode*> st;
+        
+        while(root || !st.empty()){
+            while(root){
+                st.push(root);
+                root = root->left;                
+            }
+            
+            root = st.top();
+            st.pop();
+            res.push_back(root->key);
+            root = root->right;
+        }
+        
+        return res;
+    }
+    
     vector<int> preorder_traversal(TreeNode *root){
         if(!root) return {};
         
@@ -86,7 +105,11 @@ int main(){
     root->left->right = new TreeNode(5);
     root->right->right = new TreeNode(6);
     
-    vector<int> res = bt.preorder_traversal(root);
+    vector<int> res = bt.inorder_traversal(root);
+    for(int key : res) cout << key << " ";
+    cout << endl;
+    
+    res = bt.preorder_traversal(root);
     for(int key : res) cout << key << " ";
     cout << endl;
     
