@@ -5,8 +5,8 @@ using namespace std;
 struct ListNode{
     int data;
     ListNode *next;
-    ListNode(): data(0), next(0){};
-    ListNode(int val): data(val), next(0){};
+    ListNode():data(0), next(0){};
+    ListNode(int val):data(val), next(0){};
 };
 
 class Queue{
@@ -16,7 +16,7 @@ private:
     int capacity;
     
 public:
-    Queue(): front(0), rear(0), capacity(0){};
+    Queue():front(0), rear(0), capacity(0){};
     
     bool empty(){
         return (front && rear) == 0;
