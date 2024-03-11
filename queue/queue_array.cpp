@@ -22,7 +22,7 @@ private:
     }
     
 public:
-    Queue(): capacity(10), front(0), rear(0){
+    Queue():capacity(10), front(0), rear(0){
         q = new int [capacity];
     }
     
