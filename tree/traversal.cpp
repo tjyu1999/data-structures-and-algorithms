@@ -115,6 +115,11 @@ public:
     }
 };
 
+void print_vector(vector<int> res){
+    for(int key : res) cout << key << " ";
+    cout << endl;
+}
+
 int main(){
     BinaryTree bt;
     
@@ -135,21 +140,10 @@ int main(){
     
     bt.init_root(root);
     
-    vector<int> res = bt.levelorder_traversal();
-    for(int key : res) cout << key << " ";
-    cout << endl;
-    
-    res = bt.inorder_traversal();
-    for(int key : res) cout << key << " ";
-    cout << endl;
-    
-    res = bt.preorder_traversal();
-    for(int key : res) cout << key << " ";
-    cout << endl;
-    
-    res = bt.postorder_traversal();
-    for(int key : res) cout << key << " ";
-    cout << endl;
+    print_vector(bt.levelorder_traversal());
+    print_vector(bt.inorder_traversal());
+    print_vector(bt.preorder_traversal());
+    print_vector(bt.postorder_traversal());
     
     return 0;
 }
