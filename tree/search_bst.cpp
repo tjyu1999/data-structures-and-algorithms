@@ -17,11 +17,11 @@ class BinarySearchTree{
 private:
     TreeNode *root;
     
-    bool search(TreeNode *root, int k){
-        if(!root) return false;
+    bool search(TreeNode *node, int k){
+        if(!node) return false;
         
-        if(root->key > k) return search(root->left, k);
-        else if(root->key < k) return search(root->right, k);
+        if(node->key > k) return search(node->left, k);
+        else if(node->key < k) return search(node->right, k);
         
         return true;
     }
