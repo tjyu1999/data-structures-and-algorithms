@@ -1,6 +1,6 @@
 /*
- * time complexity: O(nlogn)
- * space complexity: O(n)
+ *  time complexity: O(nlogn)
+ *  space complexity: O(n)
  */
 
 # include <iostream>
