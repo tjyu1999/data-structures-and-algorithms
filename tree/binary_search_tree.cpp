@@ -45,7 +45,7 @@ private:
             if(!node->left) return node->right;
             if(!node->right) return node->left;
             
-            TreeNode *min = get_min(node->right);
+            TreeNode *min = get_subtree_min(node->right);
             node->right = remove(node->right, min->key);
             min->left = node->left;
             min->right = node->right;
@@ -55,7 +55,7 @@ private:
         return node;
     }
     
-    TreeNode* get_min(TreeNode *node){
+    TreeNode* get_subtree_min(TreeNode *node){
         while(node->left) node = node->left;
         return node;
     }
