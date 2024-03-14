@@ -1,11 +1,6 @@
-/*
- *  time complexity: O(n^2)
- */
-
 # include <iostream>
 # include <vector>
 # include <list>
-# include <algorithm>
 
 using namespace std;
 
@@ -14,28 +9,11 @@ private:
     int num_vertex;
     int num_edge;
     vector<list<int>> adjacency;
-    bool *visited;
-    
-    vector<int> dfs(const int v){
-        visited[v] = true;
-        vector<int> res = {v};
-        
-        for(int n : adjacency[v]){
-            if(!visited[n]){
-                vector<int> tmp = dfs(n);
-                res.insert(res.end(), tmp.begin(), tmp.end());
-            }
-        }
-        
-        return res;
-    }
 
 public:
     Graph():num_vertex(0), num_edge(0){}
     
-    ~Graph(){
-        delete [] visited;
-    }
+    ~Graph(){}
     
     int get_num_vertex(){
         return num_vertex;
@@ -92,11 +70,11 @@ public:
         }
     }
     
-    vector<int> dfs(){
-        visited = new bool [num_vertex];
-        fill(visited, visited + num_vertex, false);
-        
-        return dfs(0);
+    void print_graph(){
+        for(auto vec : adjacency){
+            for(int n : vec) cout << n << " ";
+            cout << endl;
+        }
     }
 };
 
@@ -129,8 +107,7 @@ int main(){
     graph.insert_edge(4, 6);
     graph.insert_edge(6, 7);
     
-    for(int v : graph.dfs()) cout << v << " ";
-    cout << endl;
+    graph.print_graph();
     
     return 0;
 }
