@@ -1,7 +1,7 @@
 /*
- * inorder: LVR
- * preorder: VLR
- * postorder: LRV
+ *  inorder: LVR
+ *  preorder: VLR
+ *  postorder: LRV
  */
 
 # include <iostream>
