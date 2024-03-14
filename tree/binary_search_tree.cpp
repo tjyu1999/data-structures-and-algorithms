@@ -1,3 +1,8 @@
+/*
+ *  binary search tree with search, insert and remove function
+ *  time comlexity: O(h)
+ */
+
 # include <iostream>
 # include <vector>
 # include <queue>
