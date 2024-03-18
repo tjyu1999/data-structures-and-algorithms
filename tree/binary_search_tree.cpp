@@ -66,12 +66,22 @@ private:
     }
 
 public:
-    BinarySearchTree(){
-        root = nullptr;
+    BinarySearchTree():root(nullptr){}
+    
+    ~BinarySearchTree(){
+        destroy(root);
     }
     
-    void init_root(TreeNode *preset_root){
-        root = preset_root;
+    void init(vector<int> &keys){
+        for(int k : keys) root = insert(root, k);
+    }
+    
+    void destroy(TreeNode *node){
+        if(node){
+            destroy(node->left);
+            destroy(node->right);
+            delete node;
+        }
     }
     
     TreeNode* search(int k){
@@ -110,22 +120,17 @@ public:
 
 int main(){
     /*
-     *       4
-     *      / \
-     *     2   6
-     *    / \   \
-     *   1   3   7
+     *      4
+     *     / \
+     *    2   6
+     *   / \   \
+     *  1   3   7
      */
     
-    TreeNode *root = new TreeNode(4);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(6);
-    root->left->left = new TreeNode(1);
-    root->left->right = new TreeNode(3);
-    root->right->right = new TreeNode(7);
-    
+    vector<int> keys = {4, 2, 1, 3, 6, 7};
     BinarySearchTree bst;
-    bst.init_root(root);
+    
+    bst.init(keys);
     
     int k = 5;
     bst.insert(k);
