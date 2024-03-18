@@ -22,17 +22,36 @@ struct TreeNode{
     TreeNode(int val, TreeNode *left, TreeNode *right):key(val), left(left), right(right){}
 };
 
-class BinaryTree{
+class BinarySearchTree{
 private:
     TreeNode *root;
+    
+    TreeNode* insert(TreeNode *node, int k){
+        if(!node) return new TreeNode(k);
+        
+        if(node->key > k) node->left = insert(node->left, k);
+        else if(node->key < k) node->right = insert(node->right, k);
+        
+        return node;
+    }
 
 public:
-    BinaryTree(){
-        root = nullptr;
+    BinarySearchTree():root(nullptr){}
+    
+    ~BinarySearchTree(){
+        destroy(root);
     }
     
-    void init_root(TreeNode *preset_root){
-        root = preset_root;
+    void init(vector<int> &keys){
+        for(int k : keys) root = insert(root, k);
+    }
+    
+    void destroy(TreeNode *node){
+        if(node){
+            destroy(node->left);
+            destroy(node->right);
+            delete node;
+        }
     }
     
     vector<int> levelorder_traversal(){
@@ -41,15 +60,13 @@ public:
         vector<int> res;
         queue<TreeNode*> q{{root}};
         
-        while(!q.empty()){            
-            for(int n = q.size(); n > 0; --n){
-                TreeNode *node = q.front();
-                q.pop();
-                res.push_back(node->key);
-                
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
-            }
+        while(!q.empty()){
+            TreeNode *node = q.front();
+            q.pop();
+            res.push_back(node->key);
+            
+            if(node->left) q.push(node->left);
+            if(node->right) q.push(node->right);
         }
         
         return res;
@@ -121,29 +138,23 @@ void print_vector(vector<int> res){
 }
 
 int main(){
-    BinaryTree bt;
-    
     /*
-     *       1
-     *      / \
-     *     2   3
-     *    / \   \
-     *   4   5   6
+     *      4
+     *     / \
+     *    2   6
+     *   / \   \
+     *  1   3   7
      */
     
-    TreeNode *root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
-    root->left->left = new TreeNode(4);
-    root->left->right = new TreeNode(5);
-    root->right->right = new TreeNode(6);
+    vector<int> keys = {4, 2, 1, 3, 6, 7};
+    BinarySearchTree bst;
     
-    bt.init_root(root);
+    bst.init(keys);
     
-    print_vector(bt.levelorder_traversal());
-    print_vector(bt.inorder_traversal());
-    print_vector(bt.preorder_traversal());
-    print_vector(bt.postorder_traversal());
+    print_vector(bst.levelorder_traversal());
+    print_vector(bst.inorder_traversal());
+    print_vector(bst.preorder_traversal());
+    print_vector(bst.postorder_traversal());
     
     return 0;
 }
